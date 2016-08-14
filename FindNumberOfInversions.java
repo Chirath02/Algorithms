@@ -3,7 +3,7 @@ import java.util.Scanner;
 // Find the number of Inversions from a list of elements
 
 class FindNumberOfInversions {
-    void merge(int arr[], int startPos, int pos, int endPos) {
+    long countSplitInverse(int arr[], int startPos, int pos, int endPos) {
         int i, j, k;
         int lengthOfleft = pos - startPos + 1;
         int lengthOfRight =  endPos - pos;
@@ -20,11 +20,15 @@ class FindNumberOfInversions {
         i = 0; // Initial index of first subarray
         j = 0; // Initial index of second subarray
         k = startPos; // Initial index of merged subarray
+        long splitCount = 0;
         while (i < lengthOfleft && j < lengthOfRight)
-            if (Left[i] <= Right[j])
+            if (Left[i] <= Right[j]) {
                 arr[k++] = Left[i++];
-            else
+            }
+            else {
                 arr[k++] = Right[j++];
+                splitCount += (lengthOfleft - i);
+            }
 
         /* Copy the remaining elements of Left[], if there
            are any */
@@ -35,25 +39,29 @@ class FindNumberOfInversions {
            are any */
         while (j < lengthOfRight)
             arr[k++] = Right[j++];
+
+        return splitCount;
     }
 
-    void mergeSort(int Array[], int startPos, int endPos) {
+    long sortAndCount(int Array[], int startPos, int endPos) {
         if(endPos - startPos < 1)
-            return;
+            return 0;
         int pos = (startPos + (endPos-1))/2;
-        mergeSort(Array, startPos, pos);
-        mergeSort(Array, pos + 1, endPos);
-        merge(Array, startPos, pos, endPos);
+        long x = sortAndCount(Array, startPos, pos);
+        long y = sortAndCount(Array, pos + 1, endPos);
+        long z = countSplitInverse(Array, startPos, pos, endPos);
+        return x+y+z;
         }
     public static void main(String[] args) {
         /* Input the IntegerArray.txt file as
         "java FindNumberOfInversions < IntegerArray.txt" */
+        FindNumberOfInversions M = new FindNumberOfInversions();
         int Array[] = new int[100000];
         Scanner scanner = new Scanner(System.in);
         for(int i=0; i< 100000; ++i)
             Array[i]=scanner.nextInt();
-        MergeSort M = new MergeSort();
-        M.mergeSort(Array, 0, 99999);
-        System.out.println(Arrays.toString(Array));
+
+        long number = M.sortAndCount(Array, 0, 99999);
+        System.out.println(number);
     }
 }
