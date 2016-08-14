@@ -1,57 +1,38 @@
-import java.util.Scanner;
 import java.util.Arrays;
 
 class MergeSort {
-    void merge(int arr[], int l, int m, int r) {
+    void merge(int arr[], int startPos, int pos, int endPos) {
         int i, j, k;
-        int n1 = m - l + 1;
-        int n2 =  r - m;
+        int lengthOfleft = pos - startPos + 1;
+        int lengthOfRight =  endPos - pos;
 
         /* create temp arrays */
-        int L[] = new int[n1], R[] = new int[n2];
+        int Left[] = new int[lengthOfleft], Right[] = new int[lengthOfRight];
 
-        /* Copy data to temp arrays L[] and R[] */
-        for (i = 0; i < n1; i++)
-            L[i] = arr[l + i];
-        for (j = 0; j < n2; j++)
-            R[j] = arr[m + 1+ j];
+        /* Copy data to temp arrays Left[] and Right[]
+        System.arraycopy(src, srcPos, dest, destPos, length) */
+        System.arraycopy(arr, startPos, Left, 0, lengthOfleft);
+        System.arraycopy(arr, pos + 1, Right, 0, lengthOfRight);
 
         /* Merge the temp arrays back into arr[l..r]*/
         i = 0; // Initial index of first subarray
         j = 0; // Initial index of second subarray
-        k = l; // Initial index of merged subarray
-        while (i < n1 && j < n2)
-        {
-            if (L[i] <= R[j])
-            {
-                arr[k] = L[i];
-                i++;
-            }
+        k = startPos; // Initial index of merged subarray
+        while (i < lengthOfleft && j < lengthOfRight)
+            if (Left[i] <= Right[j])
+                arr[k++] = Left[i++];
             else
-            {
-                arr[k] = R[j];
-                j++;
-            }
-            k++;
-        }
+                arr[k++] = Right[j++];
 
-        /* Copy the remaining elements of L[], if there
+        /* Copy the remaining elements of Left[], if there
            are any */
-        while (i < n1)
-        {
-            arr[k] = L[i];
-            i++;
-            k++;
-        }
+        while (i < lengthOfleft)
+            arr[k++] = Left[i++];
 
-        /* Copy the remaining elements of R[], if there
+        /* Copy the remaining elements of Right[], if there
            are any */
-        while (j < n2)
-        {
-            arr[k] = R[j];
-            j++;
-            k++;
-        }
+        while (j < lengthOfRight)
+            arr[k++] = Right[j++];
     }
 
     void mergeSort(int Array[], int startPos, int endPos) {
