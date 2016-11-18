@@ -26,6 +26,9 @@ void quickSort(vector<int> &v, int l, int r) {
     if(l>r)
         return;
     c += (r-l);
+    int t = v[l];
+    v[l] = v[r];
+    v[r] = t;
     int q = partition(v, l, r);
     quickSort(v, l, q-1);
     quickSort(v, q+1, r);
