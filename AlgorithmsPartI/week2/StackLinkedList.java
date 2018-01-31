@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.Iterator;
 import java.lang.Integer;
 
+
 class StackLinkedList<Item> implements Iterable<Item> {
     private Node first = null;
 
