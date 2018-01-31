@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.lang.Integer;
 
 
-class StackResizingArray<Item> /*implements Iterable<Item>*/ {
+class StackResizingArray<Item> implements Iterable<Item> {
     private Item[] items;
     private int index = 0;
 
@@ -37,27 +37,27 @@ class StackResizingArray<Item> /*implements Iterable<Item>*/ {
         items = newArray;
     }
 
-    // public Iterator<Item> iterator() {
-    //     return new ListIterator();
-    // }
-    //
-    // private class ListIterator<Item> implements Iterator<Item> {
-    //     private int current = 0;
-    //
-    //     public boolean hasNext() {
-    //         return current <= index;
-    //     }
-    //
-    //     public Item next() {
-    //         if (!hasNext())
-    //             throw new java.util.NoSuchElementException();
-    //         return items[current++];
-    //     }
-    //
-    //     public void remove() {
-    //         throw new java.lang.UnsupportedOperationException();
-    //     }
-    // }
+    public Iterator<Item> iterator() {
+        return new ListIterator();
+    }
+
+    private class ListIterator<Item> implements Iterator<Item> {
+        private int current = index;
+
+        public boolean hasNext() {
+            return current > 0;
+        }
+
+        public Item next() {
+            if (!hasNext())
+                throw new java.util.NoSuchElementException();
+            return (Item) items[--current];
+        }
+
+        public void remove() {
+            throw new java.lang.UnsupportedOperationException();
+        }
+    }
 
     public static void main(String[] args) {
         StackResizingArray<Integer> stack = new StackResizingArray<Integer>();
@@ -67,16 +67,16 @@ class StackResizingArray<Item> /*implements Iterable<Item>*/ {
 
         System.out.println("Stack");
 
-        // for (Integer i : stack)
-        //     System.out.println(i);
+        for (Integer i : stack)
+            System.out.println(i);
 
         System.out.println("Pop");
 
-        for (int i = 0; i < 10; ++i)
-            System.out.println(stack.pop());
+        for (int i = 0; i < 5; ++i)
+            stack.pop();
 
-        // for (Integer i : stack)
-        //     System.out.println(i);
+        for (Integer i : stack)
+            System.out.println(i);
     }
 
 }
