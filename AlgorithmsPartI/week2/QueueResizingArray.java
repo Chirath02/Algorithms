@@ -54,8 +54,9 @@ class QueueResizingArray<Item> implements Iterable<Item> {
     public Item dequeue() {
         if (isEmpty())
             throw new java.util.NoSuchElementException();
-
-        Item item = items[front];
+        Item item = items[front++];
+        if (front == items.length)
+            front = 0;
         return item;
     }
 
@@ -96,14 +97,20 @@ class QueueResizingArray<Item> implements Iterable<Item> {
         for (Integer i : queue)
             System.out.println(i);
 
-        // System.out.println("Dequeue");
-        //
-        // System.out.println("Queue after pop 5");
-        //
-        // for (int i = 0; i < 5; ++i)
-        //     queue.dequeue();
-        //
-        // for (Integer i : queue)
-        //     System.out.println(i);
+        System.out.println("Dequeue");
+
+        System.out.println("Queue after pop 5");
+
+        for (int i = 0; i < 5; ++i)
+            queue.dequeue();
+
+        for (int i = 0; i < 10; ++i)
+            queue.enqueue(i + 10);
+
+        for (int i = 0; i < 10; ++i)
+            queue.enqueue(i + 10);
+
+        for (Integer i : queue)
+            System.out.println(i);
     }
 }
