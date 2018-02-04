@@ -86,11 +86,12 @@ class QueueResizingArray<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
+        // Tests
+        
         QueueResizingArray<Integer> queue = new QueueResizingArray<Integer>();
 
         for (int i = 0; i < 10; ++i)
             queue.enqueue(i);
-
 
         System.out.println("Queue");
 
