@@ -1,6 +1,7 @@
 import java.lang.String;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdIn;
+import java.util.Iterator;
 
 
 public class Permutation {
@@ -10,11 +11,9 @@ public class Permutation {
         while (!StdIn.isEmpty())
             rq.enqueue(StdIn.readString());
 
-        for (String s : rq)
-            StdOut.print(s + " ");
-        StdOut.println();
+        Iterator<String> ir = rq.iterator();
 
         for (int i = 0; i < numberOfElements; ++i)
-            StdOut.println(rq.dequeue());
+            StdOut.println(ir.next());
     }
 }

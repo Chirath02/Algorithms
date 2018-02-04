@@ -40,8 +40,10 @@ public class Deque<Item> implements Iterable<Item> {
         Node newNode = new Node(item, first, null);
         if (first == null)
             first = last = newNode;
-        else
+        else {
+            first.previous = newNode;
             first = newNode;
+        }
         numberOfNodes++;
     }
 
@@ -114,42 +116,13 @@ public class Deque<Item> implements Iterable<Item> {
 
     public static void main(String[] args) {
         // unit testing (optional)
-        Deque<Integer> d = new Deque<Integer>();
-        for (int i = 0; i < 100; ++i)
-            d.addFirst(i);
-        for (int i = 100; i < 200; ++i)
-            d.addLast(i);
-
-        boolean correct = true;
-
-        for (int s : d)
-            StdOut.print(s + " ");
-        StdOut.println();
-
-        for (int i = 99; i >= 0; --i)
-            if (i != d.removeFirst())
-                correct = false;
-
-        if (correct)
-            StdOut.println("correct for addFirst() and addLast()");
-        else
-            StdOut.println("Incorrect for addFirst() and addLast()");
-
-        for (int s : d)
-            StdOut.print(s + " ");
-        StdOut.println();
-
-        for (int i = 199; i >= 100; --i)
-            if (i != d.removeLast())
-                correct = false;
-
-        if (correct)
-            StdOut.println("correct for addFirst() and addLast()");
-        else
-            StdOut.println("Incorrect for addFirst() and addLast()");
-
-        for (int s : d)
-            StdOut.print(s + " ");
-        StdOut.println();
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addFirst(0);
+        deque.addFirst(1);
+        deque.addFirst(2);
+        deque.addFirst(3);
+        deque.addFirst(4);
+        deque.addFirst(5);
+        deque.removeLast();
     }
 }

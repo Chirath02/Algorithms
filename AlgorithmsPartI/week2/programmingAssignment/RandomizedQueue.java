@@ -20,7 +20,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public int size() {
         // return the number of items on the randomized queue
-        return end;
+        return end + 1;
     }
 
     private boolean isFull() {
@@ -47,13 +47,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         // remove and return a random item
         if (isEmpty())
             throw new java.util.NoSuchElementException();
-        int randomIndex = 0;
-        if (end > 0)
-            randomIndex = StdRandom.uniform(end);
+        int randomIndex = StdRandom.uniform(end + 1);
         Item item = items[randomIndex];
         items[randomIndex] = items[end];
         items[end--] = null;
-        if (end < items.length / 4)
+        if (end > 2 && end < items.length / 4)
             resize(items.length / 2);
         return item;
     }
@@ -62,8 +60,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         // return a random item (but do not remove it)
         if (isEmpty())
             throw new java.util.NoSuchElementException();
-        return items[StdRandom.uniform(end)];
-
+        return items[StdRandom.uniform(end + 1)];
     }
 
     private class ListIterator<Item> implements Iterator<Item> {
@@ -99,26 +96,16 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public static void main(String[] args) {
         // unit testing (optional)
-        RandomizedQueue<Integer> randomizedQueue = new RandomizedQueue<Integer>();
-        for (int i = 0; i < 100; ++i)
-            randomizedQueue.enqueue(i);
-
-        for (int s : randomizedQueue)
-            StdOut.print(s + " ");
-        StdOut.println();
-
-        for (int i = 0; i < 50; ++i)
-            StdOut.print(randomizedQueue.dequeue() + " ");
-        StdOut.println();
-
-        for (int s : randomizedQueue)
-            StdOut.print(s + " ");
-        StdOut.println();
-
-        for (int i = 0; i < 50; ++i)
-            StdOut.print(randomizedQueue.dequeue() + " ");
-        StdOut.println();
-
-        StdOut.println(randomizedQueue.isEmpty());
+        RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>();
+        rq.enqueue(873);
+        rq.isEmpty();
+        rq.size();
+        rq.size();
+        StdOut.println(rq.size());
+        StdOut.println(rq.dequeue());
+        rq.enqueue(935);
+        StdOut.println(rq.dequeue());
+        rq.enqueue(916);
+        rq.sample();
     }
 }
