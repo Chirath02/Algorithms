@@ -21,6 +21,19 @@ public class SelectionSort {
 				if (less(a[j], a[min]))
 					min = j;
 			exch(a, i, min);
-		} 
+		}
+	}
+
+	public static void main(String[] args) {
+		SelectionSort selectionSort = new SelectionSort();
+		Integer[] a = new Integer[100];
+
+		for (int i = 0; i < 100; ++i)
+			a[i] = 100 - i;
+
+		selectionSort.sort(a);
+
+		for (int i: a)
+			System.out.println(i);
 	}
 }
