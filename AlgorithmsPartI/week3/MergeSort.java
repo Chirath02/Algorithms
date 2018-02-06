@@ -44,9 +44,19 @@ public class MergeSort {
         merge(a, aux, lo, mid, hi);
     }
 
+    public void sortIterative(Comparable[]a, Comparable[] aux) {
+        int N = a.length;
+        for (int size = 1; size < N; size *= 2) {
+            for (int lo = 0; lo < N - size; lo += (size * 2)) {
+                merge(a, aux, lo, lo + size - 1, Math.min(lo + (size * 2) - 1, N-1));
+            }
+        }
+    }
+
     public void sort(Comparable[] a) {
         Comparable[] aux = new Comparable[a.length];
-        sort(a, aux, 0, a.length - 1);
+        // sort(a, aux, 0, a.length - 1);
+        sortIterative(a, aux);
     }
 
     public static void main(String[] args) {
