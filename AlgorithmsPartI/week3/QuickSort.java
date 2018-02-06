@@ -1,3 +1,5 @@
+import java.util.Random;
+
 
 public class QuickSort {
     private boolean less(Comparable a, Comparable b) {
@@ -31,16 +33,36 @@ public class QuickSort {
         return j;
     }
 
+    private void sort(Comparable[] a, int lo, int hi) {
+        if (hi <= lo)
+            return;
+        int index = partition(a, lo, hi);
+        sort(a, lo, index - 1);
+        sort(a, index + 1, hi);
+    }
+
+    private void shuffle(Comparable[] a) {
+        Random rand = new Random();
+        for (int i = 1; i < a.length; ++i) {
+            int index = rand.nextInt(i);
+            exch(a, index, i);
+        }
+    }
+
+    public void sort(Comparable[] a) {
+        shuffle(a);
+        sort(a, 0, a.length - 1);
+    }
+
     public static void main(String[] args) {
         QuickSort qs = new QuickSort();
         Integer[] a = new Integer[]{5, 7, 4, 8, 10, 9, 2, 6, 3, 1};
         for (int i: a)
             System.out.print(i + " ");
         System.out.println();
-        System.out.println(qs.partition(a, 0, a.length - 1));
+        qs.sort(a);
         for (int i: a)
             System.out.print(i + " ");
         System.out.println();
-
     }
 }
